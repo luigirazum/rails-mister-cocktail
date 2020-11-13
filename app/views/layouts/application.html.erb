@@ -11,8 +11,15 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+      
   <body>
-    <%= yield %>
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1 font-weight-bolder">Cocktails</span>
+      <%= link_to "Add a Cocktail", new_cocktail_path, class: "btn btn-primary" %>
+    </nav>
+
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

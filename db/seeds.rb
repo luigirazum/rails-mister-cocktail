@@ -5,18 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-# Ingredient.create(name: "lemon")
-# Ingredient.create(name: "ice")
-# Ingredient.create(name: "mint leaves")
-require 'rest-client'
+require 'open-uri'
 require 'json'
 
 ingredients_list = "http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-general_response = RestClient.get ingredients_list
+general_response = URI.open(ingredients_list).read
 repos_general_response = JSON.parse(general_response)
 ingredients_seed = repos_general_response["drinks"]
 
 puts "Seeding Ingredients... started..."
+
+add_ingredients = ['lemon', 'ice', 'mint leaves']
+
+add_ingredients.each do |add_ingredient|
+  puts "Adding #{add_ingredient}"
+  Ingredient.create(name: add_ingredient)
+end
 
 ingredients_seed.each do |ingredient|
   Ingredient.create(name: ingredient["strIngredient1"])
